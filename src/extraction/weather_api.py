@@ -33,10 +33,24 @@ class WeatherAPI:
     def get_limited_weather_data(self, country, city):
         data = self.get_weather_data(country, city)
         return {
+            # place infos
+            "country_code": data["sys"]["country"],
             "city": data["name"],
+            # temperature infos
             "temperature": data["main"]["temp"],
+            "feels_like": data["main"]["feels_like"],
+            "temperature_min": data["main"]["temp_min"],
+            "temperature_max": data["main"]["temp_max"],
+            # air infos
             "humidity": data["main"]["humidity"],
             "pressure": data["main"]["pressure"],
+            # weather infos
+            "weather_main": data["weather"][0]["main"],
             "weather_description": data["weather"][0]["description"],
+            # wind infos
+            "wind_speed": data["main"]["wind"]["speed"],
+            # cloud infos
+            "cloudiness": data["main"]["clouds"]["all"],
+            # extraction time
             "extraction_time": datetime.now(UTC),
         }
