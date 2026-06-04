@@ -18,9 +18,9 @@ class WeatherAPI:
             logger.info("API request successful.")
             # logger.info(f"Response text: {response.text}")
 
-    def get_weather_data(self, city):
+    def get_weather_data(self, country, city):
 
-        params = {"q": city, "appid": self.api_key, "units": "metric"}
+        params = {"q": f"{city},{country}", "appid": self.api_key, "units": "metric"}
 
         response = requests.get(url=self._url, params=params)
         self.check_response_status(response)
