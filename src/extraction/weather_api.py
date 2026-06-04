@@ -16,7 +16,7 @@ class WeatherAPI:
             )
         else:
             logger.info("API request successful.")
-            logger.info(f"Response text: {response.text}")
+            # logger.info(f"Response text: {response.text}")
 
     def get_weather_data(self, city):
 
