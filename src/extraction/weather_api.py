@@ -48,9 +48,9 @@ class WeatherAPI:
             "weather_main": data["weather"][0]["main"],
             "weather_description": data["weather"][0]["description"],
             # wind infos
-            "wind_speed": data["main"]["wind"]["speed"],
+            "wind_speed": data["wind"]["speed"],
             # cloud infos
-            "cloudiness": data["main"]["clouds"]["all"],
+            "cloudiness": data["clouds"]["all"],
             # extraction time
             "extraction_time": datetime.now(UTC),
         }
