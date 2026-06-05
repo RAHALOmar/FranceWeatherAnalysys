@@ -1,6 +1,9 @@
 """
 script to create the tables in the PostgreSQL database
 using the schema defined in weather_schema.sql
+
+P.S: database creation is not handled in this script,
+it should be created manually before running this script.
 """
 
 import psycopg2
