@@ -10,6 +10,7 @@ loader = PostgresLoader()
 
 def load_weather_data(locations: list[tuple[str, str]]) -> None:
     """Load weather data for specified locations into the database.
+        Locations is a list of tupls containing country_code and the city name in that country
     Args:
         locations: A list of tuples containing country code and city names.
 
