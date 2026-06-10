@@ -20,6 +20,7 @@ CREATE TABLE weather_clean (
     cloudiness INTEGER,
 
     temperature_category VARCHAR(20),
+    humidity_category VARCHAR(20),
 
     extraction_time TIMESTAMPTZ NOT NULL
 );
