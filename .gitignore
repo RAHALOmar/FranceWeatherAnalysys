@@ -216,4 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local files/testing setups
 dir_draw.py
+test_pyspark.py
+test_jdbc.py
