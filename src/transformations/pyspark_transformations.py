@@ -9,7 +9,12 @@ class WeatherTransformer:
 
     def __init__(self):
 
-        self.spark = SparkSession.builder.appName("FranceWeatherAnalysis").getOrCreate()
+        self.spark = (
+            SparkSession.builder.appName("FranceWeatherAnalysis")
+            .master("local[*]")
+            .config("spark.driver.extraClassPath", r"jars\postgresql-42.7.4.jar")
+            .getOrCreate()
+        )
 
         self.jdbc_url = (
             f"jdbc:postgresql://{Config.DB_HOST}:{Config.DB_PORT}/{Config.DB_NAME}"
@@ -44,6 +49,13 @@ class WeatherTransformer:
             .when(col("temperature") < 22, "Moderate")
             .otherwise("Hot"),
         )
+        # Humidity category
+        df = df.withColumn(
+            "humidity_category",
+            when(col("humidity") < 40, "Dry")
+            .when(col("humidity") < 70, "Normal")
+            .otherwise("Humid"),
+        )
 
         return df
 
@@ -62,6 +74,7 @@ class WeatherTransformer:
         raw_df = self.read_raw_weather()
 
         clean_df = self.clean_weather_data(raw_df)
+        clean_df = clean_df.drop("id")
 
         self.write_clean_weather(clean_df)
 
