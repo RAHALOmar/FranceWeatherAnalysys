@@ -1,6 +1,7 @@
 import psycopg2
 
 from ..utils.config import Config
+from ..utils.constants import WEATHER_RAW_TABLE
 from ..utils.logger import logger
 
 
@@ -28,8 +29,8 @@ class PostgresLoader:
             self.connect()
         try:
             with self.connection.cursor() as cursor:
-                insert_query = """
-                    INSERT INTO weather_raw (
+                insert_query = f"""
+                    INSERT INTO {WEATHER_RAW_TABLE} (
                         country_code, city, 
                         temperature, feels_like, temperature_min, temperature_max,
                         humidity, pressure, 

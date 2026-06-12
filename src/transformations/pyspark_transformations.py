@@ -2,13 +2,14 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, when
 
 from src.utils.config import Config
+from src.utils.constants import WEATHER_CLEAN_TABLE, WEATHER_RAW_TABLE
 from src.utils.logger import logger
 
 
 class WeatherTransformer:
 
     def __init__(self):
-
+        # Initialize Spark session with PostgreSQL JDBC driver
         self.spark = (
             SparkSession.builder.appName("FranceWeatherAnalysis")
             .master("local[*]")
@@ -16,10 +17,12 @@ class WeatherTransformer:
             .getOrCreate()
         )
 
+        # JDBC connection properties
         self.jdbc_url = (
             f"jdbc:postgresql://{Config.DB_HOST}:{Config.DB_PORT}/{Config.DB_NAME}"
         )
 
+        # Connection properties for JDBC
         self.connection_properties = {
             "user": Config.DB_USER,
             "password": Config.DB_PASSWORD,
@@ -30,7 +33,7 @@ class WeatherTransformer:
 
         return self.spark.read.jdbc(
             url=self.jdbc_url,
-            table="weather_raw",
+            table=WEATHER_RAW_TABLE,
             properties=self.connection_properties,
         )
 
@@ -64,7 +67,7 @@ class WeatherTransformer:
         (
             df.write.mode("append").jdbc(
                 url=self.jdbc_url,
-                table="weather_clean",
+                table=WEATHER_CLEAN_TABLE,
                 properties=self.connection_properties,
             )
         )
