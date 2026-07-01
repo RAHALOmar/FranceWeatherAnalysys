@@ -40,6 +40,6 @@ def create_tables(path="database/schemas/weather_schema.sql"):
 
 
 if __name__ == "__main__":
-    # create_tables(path="database/schemas/weather_schema.sql")
-    # create_tables(path="database/schemas/weather_clean.sql")
+    # create_tables(path="database/init/weather_schema.sql")
+    # create_tables(path="database/init/weather_clean.sql")
     pass
