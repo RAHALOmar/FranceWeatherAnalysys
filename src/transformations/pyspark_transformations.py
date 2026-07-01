@@ -1,6 +1,6 @@
-from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, when
 
+from src.utils.spark import get_spark
 from src.utils.config import Config
 from src.utils.constants import WEATHER_CLEAN_TABLE, WEATHER_RAW_TABLE
 from src.utils.logger import logger
@@ -10,12 +10,7 @@ class WeatherTransformer:
 
     def __init__(self):
         # Initialize Spark session with PostgreSQL JDBC driver
-        self.spark = (
-            SparkSession.builder.appName("FranceWeatherAnalysis")
-            .master("local[*]")
-            .config("spark.driver.extraClassPath", r"jars\postgresql-42.7.4.jar")
-            .getOrCreate()
-        )
+        self.spark = get_spark()
 
         # JDBC connection properties
         self.jdbc_url = (
